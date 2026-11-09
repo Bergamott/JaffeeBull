@@ -1,0 +1,10 @@
+images {
+  image: "/main/assets/images/center_line.png"
+}
+images {
+  image: "/main/assets/images/tv_frame.png"
+}
+images {
+  image: "/main/assets/images/dark_gray.png"
+}
+extrude_borders: 2

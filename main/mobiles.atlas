@@ -1,0 +1,7 @@
+images {
+  image: "/main/assets/images/head_left1.png"
+}
+images {
+  image: "/main/assets/images/neck_left.png"
+}
+extrude_borders: 2
