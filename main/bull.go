@@ -18,8 +18,8 @@ embedded_components {
   type: "collisionobject"
   data: "type: COLLISION_OBJECT_TYPE_DYNAMIC\n"
   "mass: 1.0\n"
-  "friction: 0.1\n"
-  "restitution: 0.5\n"
+  "friction: 0.5\n"
+  "restitution: 0.2\n"
   "group: \"default\"\n"
   "mask: \"default\"\n"
   "embedded_collision_shape {\n"
@@ -83,5 +83,6 @@ embedded_components {
   "  data: 10.0\n"
   "  data: 10.0\n"
   "}\n"
+  "angular_damping: 0.3\n"
   ""
 }
