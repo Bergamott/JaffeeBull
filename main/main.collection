@@ -80,10 +80,13 @@ embedded_instances {
   position {
     x: 50.0
     y: 172.0
+    z: 0.1
   }
 }
 embedded_instances {
   id: "left_cranium"
+  children: "cheek"
+  children: "launch_bull"
   data: "embedded_components {\n"
   "  id: \"sprite\"\n"
   "  type: \"sprite\"\n"
@@ -149,5 +152,52 @@ embedded_instances {
   position {
     x: 271.0
     y: 184.0
+  }
+}
+embedded_instances {
+  id: "launch_bull"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"bull\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 88.0\\n"
+  "  y: 46.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/mobiles.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  scale {\n"
+  "    x: 0.4\n"
+  "    y: 0.4\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 20.0
+    y: -24.0
+    z: -0.1
+  }
+}
+embedded_instances {
+  id: "cheek"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"cheek\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/mobiles.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 28.0
+    y: -24.0
   }
 }

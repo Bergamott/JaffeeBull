@@ -1,10 +1,11 @@
 go.property("start_impulse", vmath.vector3(1,0,0))
+BULL_INITIAL_SCALE = 0.4
 BULL_GROWTH_SPEED = 1.6
 
 function init(self)
 	local body = b2d.get_body("#collisionobject") -- <3>
 	local center = b2d.body.get_world_center(body) -- <4>
-	self.sprite_scale = 0.2
+	self.sprite_scale = BULL_INITIAL_SCALE
 	go.set("#sprite","scale",vmath.vector3(self.sprite_scale, self.sprite_scale, 1.0))
 	b2d.body.apply_linear_impulse(body, self.start_impulse, center)
 end
