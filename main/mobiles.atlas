@@ -4,4 +4,7 @@ images {
 images {
   image: "/main/assets/images/neck_left.png"
 }
+images {
+  image: "/main/assets/images/bull.png"
+}
 extrude_borders: 2

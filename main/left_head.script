@@ -76,6 +76,13 @@ function on_input(self, action_id, action)
 		self.tilt_dir = 1
 	elseif action_id == hash("down") then
 		self.tilt_dir = 2
+	elseif action_id == hash("space") and action.pressed then
+		local bullpos = go.get_position()
+		bullpos.z = 0.1
+		bullpos.x = bullpos.x + 40.0
+		local imp = vmath.vector3(200, 0, 0)
+		local id = factory.create("/game_area#bull_factory", bullpos, nil,
+		{start_impulse = imp})
 	end
 end
 
