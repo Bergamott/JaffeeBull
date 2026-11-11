@@ -1,7 +1,16 @@
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	msg.post("/right_cheek","disable")
+	msg.post("/right_bull","disable")
+	self.tilt = 0
+	self.tilt_dir = 0
+	self.neck_dir = 0
+	self.tilt_target = -10.0
+	self.neck_target = 105.0
+	self.pos = go.get_position()
+	self.state = 1
+	self.cheek_stretch = 0.2
+	self.stretch_target = 0.0
+	self.wait = 0.0
 end
 
 function final(self)
@@ -11,9 +20,66 @@ function final(self)
 end
 
 function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	self.wait = self.wait - dt
+	if self.state == 1 then -- Moving around
+		local motion = false
+		if self.tilt < self.tilt_target - TILT_SPEED * dt then
+			self.tilt = self.tilt + TILT_SPEED * dt
+			motion = true
+		elseif  self.tilt > self.tilt_target + TILT_SPEED * dt then
+			self.tilt = self.tilt - TILT_SPEED * dt
+			motion = true
+		end
+		go.set_rotation(vmath.quat_rotation_z(math.rad(self.tilt)),"/right_cranium")
+		if self.pos.y < self.neck_target - NECK_SPEED * dt then
+			self.pos.y = self.pos.y + NECK_SPEED * dt
+			motion = true
+		elseif self.pos.y > self.neck_target + NECK_SPEED * dt then
+			self.pos.y = self.pos.y - NECK_SPEED * dt
+			motion = true
+		end
+		go.set_position(self.pos)
+		if not motion then
+			sprite.play_flipbook("/right_cranium#sprite", hash("head_left2"))
+			self.cheek_stretch = 0.2
+			go.set_scale(vmath.vector3(1.0-self.cheek_stretch, 1.0, 1.0), "/right_cheek")
+			go.set_position(vmath.vector3(-28.0+23.0*self.cheek_stretch, -24.0, 0), "/right_cheek")
+			msg.post("/right_cheek","enable")
+			go.set_position(vmath.vector3(-66.0+46.0*self.cheek_stretch, -19.0, -0.1), "/right_bull")
+			msg.post("/right_bull","enable")
+			self.stretch_target = 0.80
+			self.state = 2
+		end
+	elseif self.state == 2 then -- Cheek stretch
+		self.cheek_stretch = self.cheek_stretch + dt * STRETCH_SPEED
+		go.set_scale(vmath.vector3(1.0-self.cheek_stretch, 1.0, 1.0), "/right_cheek")
+		go.set_position(vmath.vector3(-28.0+23.0*self.cheek_stretch, -24.0, 0), "/right_cheek")
+		go.set_position(vmath.vector3(-66.0+46.0*self.cheek_stretch, -19.0, -0.1), "/right_bull")
+		if self.cheek_stretch >= self.stretch_target then
+			msg.post("/right_bull","disable")
+			local bullpos = go.get_world_position("/right_bull")
+			local bullrot = go.get_world_rotation("/right_bull")
+			bullpos.z = 0.1
+			local imp = vmath.vector3(-300.0*self.cheek_stretch, 0, 0)
+			local rot_imp = vmath.rotate(bullrot, imp)
+			local id = factory.create("/game_area#bull_factory", bullpos, bullrot,
+			{start_impulse = rot_imp})
+			msg.post("/game_area#game_area", "new_bull", {id = id})
+			self.wait = 1.3
+			self.state = 3
+		end
+	elseif self.state == 3 then
+		if self.wait <= 0 then
+			msg.post("/right_cheek","disable")
+			sprite.play_flipbook("/right_cranium#sprite", hash("head_left1"))
+			--self.wait = 0.3
+			--self.state = 4
+			self.state = 1
+			self.neck_target = 153.0
+			self.stretch_target = 0.75
+			self.tilt_target = -11.0
+		end
+	end
 end
 
 function late_update(self, dt)

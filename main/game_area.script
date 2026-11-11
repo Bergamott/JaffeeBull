@@ -8,6 +8,8 @@ function init(self)
 	-- Remove this function if not needed
 	self.bull_ids = {}
 	self.left_pile = 0
+	self.right_pile = 0
+	--msg.post("/center_line","disable") -- Test
 end
 
 function final(self)
@@ -19,6 +21,8 @@ end
 function update(self, dt)
 	local top_left = 0
 	local left_pile = 0
+	local top_right = 0
+	local right_pile = 0
 	for i, bull_id in ipairs(self.bull_ids) do
 		local collision_url = msg.url(nil, bull_id, "collisionobject")
 		local velocity = go.get(collision_url, "linear_velocity")
@@ -28,12 +32,19 @@ function update(self, dt)
 			if pos.x < 271 then
 				left_pile = left_pile + 1
 				top_left = math.max(top_left, pos.y)
+			else
+				right_pile = right_pile + 1
+				top_right = math.max(top_right, pos.y)
 			end
 		end
 	end
 	if self.left_pile ~= left_pile then
 		self.left_pile = left_pile
 		sprite.play_flipbook("/game_area#digit_left", DIGIT_FRAMES[self.left_pile % 10 + 1])
+	end
+	if self.right_pile ~= right_pile then
+		self.right_pile = right_pile
+		sprite.play_flipbook("/game_area#digit_right", DIGIT_FRAMES[self.right_pile % 10 + 1])
 	end
 	if top_left > 255.0 then
 		print("DONE")
