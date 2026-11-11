@@ -7,4 +7,43 @@ images {
 images {
   image: "/main/assets/images/dark_gray.png"
 }
+images {
+  image: "/main/assets/images/score_pad.png"
+}
+images {
+  image: "/main/assets/images/elected.png"
+}
+images {
+  image: "/main/assets/images/0.png"
+}
+images {
+  image: "/main/assets/images/1.png"
+}
+images {
+  image: "/main/assets/images/2.png"
+}
+images {
+  image: "/main/assets/images/3.png"
+}
+images {
+  image: "/main/assets/images/4.png"
+}
+images {
+  image: "/main/assets/images/5.png"
+}
+images {
+  image: "/main/assets/images/6.png"
+}
+images {
+  image: "/main/assets/images/7.png"
+}
+images {
+  image: "/main/assets/images/8.png"
+}
+images {
+  image: "/main/assets/images/9.png"
+}
+images {
+  image: "/main/assets/images/empty.png"
+}
 extrude_borders: 2

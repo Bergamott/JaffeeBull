@@ -1,7 +1,7 @@
 MAX_TILT = 40.0
 MIN_TILT = -40.0
 TILT_SPEED = 25.0
-NECK_SPEED = 30.0
+NECK_SPEED = 50.0
 NECK_MAX = 285.0
 NECK_MIN = 93.0
 STRETCH_SPEED = 0.5
@@ -16,6 +16,7 @@ function init(self)
 	self.space_pressed = false
 	self.cheek_stretch = 0.2
 	self.wait = 0
+	self.vertical_dir = 0
 	msg.post("/cheek","disable")
 	msg.post("/launch_bull","disable")
 	msg.post(".", "acquire_input_focus")
@@ -40,21 +41,33 @@ function update(self, dt)
 			self.tilt = MIN_TILT
 		end
 	end
-	if self.neck_dir == 1 then
+	--if self.neck_dir == 1 then
+	--	self.pos.y = self.pos.y + dt * NECK_SPEED
+	--	if self.pos.y >= NECK_MAX then
+	--		self.pos.y = NECK_MAX
+	--		self.neck_dir = 2
+	--	end
+	--elseif self.neck_dir == 2 then
+	--	self.pos.y = self.pos.y - dt * NECK_SPEED
+	--	if self.pos.y <= NECK_MIN then
+	--		self.pos.y = NECK_MIN
+	--		self.neck_dir = 1
+	--	end
+	--end
+	if self.vertical_dir == 1 then
 		self.pos.y = self.pos.y + dt * NECK_SPEED
 		if self.pos.y >= NECK_MAX then
 			self.pos.y = NECK_MAX
-			self.neck_dir = 2
 		end
-	elseif self.neck_dir == 2 then
+	elseif self.vertical_dir == 2 then
 		self.pos.y = self.pos.y - dt * NECK_SPEED
 		if self.pos.y <= NECK_MIN then
 			self.pos.y = NECK_MIN
-			self.neck_dir = 1
 		end
 	end
 	go.set_position(self.pos)
 	self.tilt_dir = 0
+	self.vertical_dir = 0
 	go.set_rotation(vmath.quat_rotation_z(math.rad(self.tilt)),"/left_cranium")
 	if self.state == 1 then  -- Normal
 		if self.space_pressed then
@@ -83,6 +96,8 @@ function update(self, dt)
 			local rot_imp = vmath.rotate(bullrot, imp)
 			local id = factory.create("/game_area#bull_factory", bullpos, bullrot,
 			{start_impulse = rot_imp})
+			--msg.post(id, "set_parent", { parent_id = go.get_id("/bullpen") })
+			msg.post("/game_area#game_area", "new_bull", {id = id})
 			self.wait = 0.3
 			self.state = 3
 		end
@@ -123,13 +138,16 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("up") then
+	if action_id == hash("left") then
 		self.tilt_dir = 1
-	elseif action_id == hash("down") then
+	elseif action_id == hash("right") then
 		self.tilt_dir = 2
+	elseif action_id == hash("up") then
+		self.vertical_dir = 1
+	elseif action_id == hash("down") then
+		self.vertical_dir = 2
 	elseif action_id == hash("space") then
 		self.space_pressed = true
-		
 	end
 end
 

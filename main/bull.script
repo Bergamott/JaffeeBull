@@ -24,6 +24,7 @@ function update(self, dt)
 	go.set("#sprite","scale",vmath.vector3(self.sprite_scale, self.sprite_scale, 1.0))
 	local pos = go.get_position(id)
 	if pos.y < -100.0 then
+		msg.post("/game_area#game_area", "bull_gone", {id = go.get_id()})
 		go.delete()
 	end
 end

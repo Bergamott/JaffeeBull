@@ -1,0 +1,87 @@
+
+DIGIT_FRAMES = {hash("empty"), hash("1"), hash("2"), hash("3"),
+hash("4"), hash("5"), hash("6"), hash("7"), hash("8"), hash("9")}
+
+function init(self)
+	-- Add initialization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+	self.bull_ids = {}
+	self.left_pile = 0
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	local top_left = 0
+	local left_pile = 0
+	for i, bull_id in ipairs(self.bull_ids) do
+		local collision_url = msg.url(nil, bull_id, "collisionobject")
+		local velocity = go.get(collision_url, "linear_velocity")
+		local speed = vmath.length(velocity)
+		if speed < 6.0 then
+			local pos = go.get_position(bull_id)
+			if pos.x < 271 then
+				left_pile = left_pile + 1
+				top_left = math.max(top_left, pos.y)
+			end
+		end
+	end
+	if self.left_pile ~= left_pile then
+		self.left_pile = left_pile
+		sprite.play_flipbook("/game_area#digit_left", DIGIT_FRAMES[self.left_pile % 10 + 1])
+	end
+	if top_left > 260.0 then
+		print("DONE")
+	end
+end
+
+function late_update(self, dt)
+	-- This function is called at the end of update cycle but before render
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function fixed_update(self, dt)
+	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
+	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
+	-- Physics section of game.project
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("new_bull") then
+		table.insert(self.bull_ids, message.id)
+	elseif message_id == hash("bull_gone") then
+		for i, value in ipairs(self.bull_ids) do
+			if value == message.id then
+				table.remove(self.bull_ids, i)
+				break
+			end
+		end
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
