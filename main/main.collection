@@ -5,6 +5,7 @@ embedded_instances {
   children: "bullpen"
   children: "center_line"
   children: "left_head"
+  children: "right_head"
   children: "tv_frame"
   data: "components {\n"
   "  id: \"game_area\"\n"
@@ -49,7 +50,7 @@ embedded_instances {
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
   "    position {\\n"
-  "      x: 220.0\\n"
+  "      x: 271.0\\n"
   "      y: 36.0\\n"
   "    }\\n"
   "    rotation {\\n"
@@ -57,7 +58,7 @@ embedded_instances {
   "    index: 0\\n"
   "    count: 3\\n"
   "  }\\n"
-  "  data: 45.0\\n"
+  "  data: 97.0\\n"
   "  data: 10.0\\n"
   "  data: 10.0\\n"
   "}\\n"
@@ -306,6 +307,9 @@ embedded_instances {
   "  texture: \\\"/main/mobiles.atlas\\\"\\n"
   "}\\n"
   "\"\n"
+  "  position {\n"
+  "    y: -5.0\n"
+  "  }\n"
   "  scale {\n"
   "    x: 0.4\n"
   "    y: 0.4\n"
@@ -314,7 +318,7 @@ embedded_instances {
   ""
   position {
     x: 20.0
-    y: -24.0
+    y: -19.0
     z: -0.1
   }
 }
@@ -340,4 +344,107 @@ embedded_instances {
 embedded_instances {
   id: "bullpen"
   data: ""
+}
+embedded_instances {
+  id: "right_head"
+  children: "right_cranium"
+  data: "components {\n"
+  "  id: \"opponent\"\n"
+  "  component: \"/main/opponent.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"neck\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"neck_left\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 62.0\\n"
+  "  y: 26.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/mobiles.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    z: -0.1\n"
+  "  }\n"
+  "  scale {\n"
+  "    x: -1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 494.0
+    y: 172.0
+  }
+}
+embedded_instances {
+  id: "right_cranium"
+  children: "bull_right"
+  children: "right_cheek"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"head_left1\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/mobiles.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  scale {\n"
+  "    x: -1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: -20.0
+  }
+}
+embedded_instances {
+  id: "right_cheek"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"cheek\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/mobiles.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: -28.0
+    y: -24.0
+  }
+}
+embedded_instances {
+  id: "bull_right"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"bull\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/mobiles.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    y: -5.0\n"
+  "  }\n"
+  "  scale {\n"
+  "    x: 0.4\n"
+  "    y: 0.4\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: -20.0
+    y: -19.0
+    z: -0.1
+  }
 }

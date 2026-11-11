@@ -76,7 +76,7 @@ function update(self, dt)
 			go.set_scale(vmath.vector3(1.0-self.cheek_stretch, 1.0, 1.0), "/cheek")
 			go.set_position(vmath.vector3(28.0-23.0*self.cheek_stretch, -24.0, 0), "/cheek")
 			msg.post("/cheek","enable")
-			go.set_position(vmath.vector3(66.0-46.0*self.cheek_stretch, -24.0, -0.1), "/launch_bull")
+			go.set_position(vmath.vector3(66.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")
 			msg.post("/launch_bull","enable")
 			self.state = 2
 		end
@@ -86,7 +86,7 @@ function update(self, dt)
 			self.cheek_stretch = math.min(self.cheek_stretch, 1.0)
 			go.set_scale(vmath.vector3(1.01-self.cheek_stretch, 1.0, 1.0), "/cheek")
 			go.set_position(vmath.vector3(28.0-23.0*self.cheek_stretch, -24.0, 0), "/cheek")
-			go.set_position(vmath.vector3(66.0-46.0*self.cheek_stretch, -24.0, -0.1), "/launch_bull")				
+			go.set_position(vmath.vector3(66.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")				
 		else
 			msg.post("/launch_bull","disable")
 			local bullpos = go.get_world_position("/launch_bull")

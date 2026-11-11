@@ -12,6 +12,9 @@ embedded_components {
   "  texture: \"/main/mobiles.atlas\"\n"
   "}\n"
   ""
+  position {
+    y: -5.0
+  }
 }
 embedded_components {
   id: "collisionobject"
@@ -27,7 +30,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: -3.0\n"
-  "      y: 7.0\n"
+  "      y: 2.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
@@ -39,7 +42,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: -24.0\n"
-  "      y: -17.0\n"
+  "      y: -22.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
@@ -51,7 +54,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 13.0\n"
-  "      y: -17.0\n"
+  "      y: -22.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
@@ -63,12 +66,13 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 31.0\n"
-  "      y: 12.0\n"
+  "      y: 7.0\n"
   "    }\n"
   "    rotation {\n"
   "    }\n"
   "    index: 9\n"
   "    count: 3\n"
+  "    id: \"head\"\n"
   "  }\n"
   "  data: 25.0\n"
   "  data: 15.0\n"

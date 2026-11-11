@@ -23,7 +23,7 @@ function update(self, dt)
 		local collision_url = msg.url(nil, bull_id, "collisionobject")
 		local velocity = go.get(collision_url, "linear_velocity")
 		local speed = vmath.length(velocity)
-		if speed < 6.0 then
+		if speed < 7.0 then
 			local pos = go.get_position(bull_id)
 			if pos.x < 271 then
 				left_pile = left_pile + 1
@@ -35,7 +35,7 @@ function update(self, dt)
 		self.left_pile = left_pile
 		sprite.play_flipbook("/game_area#digit_left", DIGIT_FRAMES[self.left_pile % 10 + 1])
 	end
-	if top_left > 260.0 then
+	if top_left > 255.0 then
 		print("DONE")
 	end
 end

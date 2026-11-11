@@ -8,8 +8,7 @@ embedded_components {
   "  texture: \"/main/mobiles.atlas\"\n"
   "}\n"
   ""
-  scale {
-    x: 0.2
-    y: 0.2
+  position {
+    y: -5.0
   }
 }
