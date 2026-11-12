@@ -5,6 +5,7 @@ NECK_SPEED = 50.0
 NECK_MAX = 285.0
 NECK_MIN = 93.0
 STRETCH_SPEED = 0.5
+RELOAD_TIME = 1.6
 
 function init(self)
 	self.tilt = 0
@@ -20,6 +21,7 @@ function init(self)
 	msg.post("/cheek","disable")
 	msg.post("/launch_bull","disable")
 	msg.post(".", "acquire_input_focus")
+	sprite.play_flipbook("/left_cranium#sprite", hash("talking"))
 end
 
 function final(self)
@@ -76,7 +78,7 @@ function update(self, dt)
 			go.set_scale(vmath.vector3(1.0-self.cheek_stretch, 1.0, 1.0), "/cheek")
 			go.set_position(vmath.vector3(28.0-23.0*self.cheek_stretch, -24.0, 0), "/cheek")
 			msg.post("/cheek","enable")
-			go.set_position(vmath.vector3(66.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")
+			go.set_position(vmath.vector3(69.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")
 			msg.post("/launch_bull","enable")
 			self.state = 2
 		end
@@ -86,7 +88,7 @@ function update(self, dt)
 			self.cheek_stretch = math.min(self.cheek_stretch, 1.0)
 			go.set_scale(vmath.vector3(1.01-self.cheek_stretch, 1.0, 1.0), "/cheek")
 			go.set_position(vmath.vector3(28.0-23.0*self.cheek_stretch, -24.0, 0), "/cheek")
-			go.set_position(vmath.vector3(66.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")				
+			go.set_position(vmath.vector3(69.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")				
 		else
 			msg.post("/launch_bull","disable")
 			local bullpos = go.get_world_position("/launch_bull")
@@ -105,11 +107,12 @@ function update(self, dt)
 		if self.wait <= 0 then
 			msg.post("/cheek","disable")
 			sprite.play_flipbook("/left_cranium#sprite", hash("head_left1"))
-			self.wait = 0.3
+			self.wait = RELOAD_TIME
 			self.state = 4
 		end
-	elseif self.state == 4 then -- Reload time
+	elseif self.state == 4 then -- Reloading
 		if self.wait <= 0 then
+			sprite.play_flipbook("/left_cranium#sprite", hash("talking"))
 			self.state = 1
 		end
 	end
@@ -132,9 +135,9 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
+	if message_id == hash("stop") then
+		self.state = 0
+	end
 end
 
 function on_input(self, action_id, action)

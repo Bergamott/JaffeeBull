@@ -46,4 +46,18 @@ images {
 images {
   image: "/main/assets/images/empty.png"
 }
+images {
+  image: "/main/assets/images/game_over.png"
+}
+animations {
+  id: "elected_flash"
+  images {
+    image: "/main/assets/images/elected.png"
+  }
+  images {
+    image: "/main/assets/images/empty.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 8
+}
 extrude_borders: 2

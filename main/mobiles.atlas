@@ -13,4 +13,36 @@ images {
 images {
   image: "/main/assets/images/cheek.png"
 }
+images {
+  image: "/main/assets/images/head_left3.png"
+}
+images {
+  image: "/main/assets/images/head_left4.png"
+}
+images {
+  image: "/main/assets/images/head_left5.png"
+}
+animations {
+  id: "talking"
+  images {
+    image: "/main/assets/images/head_left1.png"
+  }
+  images {
+    image: "/main/assets/images/head_left5.png"
+  }
+  images {
+    image: "/main/assets/images/head_left3.png"
+  }
+  images {
+    image: "/main/assets/images/head_left4.png"
+  }
+  images {
+    image: "/main/assets/images/head_left3.png"
+  }
+  images {
+    image: "/main/assets/images/head_left5.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
 extrude_borders: 2

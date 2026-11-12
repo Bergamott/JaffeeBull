@@ -1,14 +1,16 @@
-
 DIGIT_FRAMES = {hash("empty"), hash("1"), hash("2"), hash("3"),
 hash("4"), hash("5"), hash("6"), hash("7"), hash("8"), hash("9")}
+HESITATION_TIMES = {4.0, 3.5, 3.0, 2.5, 2.0, 1.5}
 
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
 	self.bull_ids = {}
 	self.left_pile = 0
 	self.right_pile = 0
+	self.state = 1
+	self.won = false
+	self.timer = 0
+	self.level = 1
+	msg.post("/game_over","disable")
 	--msg.post("/center_line","disable") -- Test
 end
 
@@ -19,35 +21,69 @@ function final(self)
 end
 
 function update(self, dt)
-	local top_left = 0
-	local left_pile = 0
-	local top_right = 0
-	local right_pile = 0
-	for i, bull_id in ipairs(self.bull_ids) do
-		local collision_url = msg.url(nil, bull_id, "collisionobject")
-		local velocity = go.get(collision_url, "linear_velocity")
-		local speed = vmath.length(velocity)
-		if speed < 7.0 then
-			local pos = go.get_position(bull_id)
-			if pos.x < 271 then
-				left_pile = left_pile + 1
-				top_left = math.max(top_left, pos.y)
-			else
-				right_pile = right_pile + 1
-				top_right = math.max(top_right, pos.y)
+	self.timer = self.timer - dt
+	if self.state == 1 then
+		local top_left = 0
+		local left_pile = 0
+		local top_right = 0
+		local right_pile = 0
+		for i, bull_id in ipairs(self.bull_ids) do
+			local collision_url = msg.url(nil, bull_id, "collisionobject")
+			local velocity = go.get(collision_url, "linear_velocity")
+			local speed = vmath.length(velocity)
+			if speed < 7.0 then
+				local pos = go.get_position(bull_id)
+				if pos.x < 271 then
+					left_pile = left_pile + 1
+					top_left = math.max(top_left, pos.y)
+				else
+					right_pile = right_pile + 1
+					top_right = math.max(top_right, pos.y)
+				end
 			end
 		end
-	end
-	if self.left_pile ~= left_pile then
-		self.left_pile = left_pile
-		sprite.play_flipbook("/game_area#digit_left", DIGIT_FRAMES[self.left_pile % 10 + 1])
-	end
-	if self.right_pile ~= right_pile then
-		self.right_pile = right_pile
-		sprite.play_flipbook("/game_area#digit_right", DIGIT_FRAMES[self.right_pile % 10 + 1])
-	end
-	if top_left > 255.0 then
-		print("DONE")
+		if self.left_pile ~= left_pile then
+			self.left_pile = left_pile
+			sprite.play_flipbook("/game_area#digit_left", DIGIT_FRAMES[self.left_pile % 10 + 1])
+		end
+		if self.right_pile ~= right_pile then
+			self.right_pile = right_pile
+			sprite.play_flipbook("/game_area#digit_right", DIGIT_FRAMES[self.right_pile % 10 + 1])
+			msg.post("/right_head#opponent", "stack_height", {height = top_right})
+		end
+		if top_left > 255.0 or top_right > 255.0 then
+			msg.post("/right_head#opponent", "stop")
+			msg.post("/left_head#left_head", "stop")
+			if top_left > 255.0 then
+				self.won = true
+				sprite.play_flipbook("/game_area#elected_left", "elected_flash")
+			else
+				self.won = true
+				sprite.play_flipbook("/game_area#elected_right", "elected_flash")
+			end
+			self.timer = 2.5
+			self.state = 2
+		end
+	elseif self.state == 2 then -- Level finished
+		if self.timer <= 0 then
+			sprite.play_flipbook("/game_area#elected_left","elected")
+			sprite.play_flipbook("/game_area#elected_right","elected")
+			if self.won then
+				self.state = 0
+
+				
+			else
+				msg.post("/game_over","enable")
+				self.timer = 2.5
+				self.state = 3
+			end
+		end
+	elseif self.state == 3 then -- Game over
+		if self.timer <= 0 then
+			self.state = 0
+
+			
+		end
 	end
 end
 

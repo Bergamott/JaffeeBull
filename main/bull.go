@@ -13,6 +13,7 @@ embedded_components {
   "}\n"
   ""
   position {
+    x: -3.0
     y: -5.0
   }
 }
@@ -29,7 +30,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: -3.0\n"
+  "      x: -6.0\n"
   "      y: 2.0\n"
   "    }\n"
   "    rotation {\n"
@@ -41,7 +42,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: -24.0\n"
+  "      x: -27.0\n"
   "      y: -22.0\n"
   "    }\n"
   "    rotation {\n"
@@ -53,7 +54,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 13.0\n"
+  "      x: 10.0\n"
   "      y: -22.0\n"
   "    }\n"
   "    rotation {\n"
@@ -65,7 +66,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 31.0\n"
+  "      x: 28.0\n"
   "      y: 7.0\n"
   "    }\n"
   "    rotation {\n"

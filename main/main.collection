@@ -2,8 +2,8 @@ name: "main"
 scale_along_z: 0
 embedded_instances {
   id: "game_area"
-  children: "bullpen"
   children: "center_line"
+  children: "game_over"
   children: "left_head"
   children: "right_head"
   children: "tv_frame"
@@ -308,6 +308,7 @@ embedded_instances {
   "}\\n"
   "\"\n"
   "  position {\n"
+  "    x: -3.0\n"
   "    y: -5.0\n"
   "  }\n"
   "  scale {\n"
@@ -317,7 +318,7 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 20.0
+    x: 23.0
     y: -19.0
     z: -0.1
   }
@@ -340,10 +341,6 @@ embedded_instances {
     x: 28.0
     y: -24.0
   }
-}
-embedded_instances {
-  id: "bullpen"
-  data: ""
 }
 embedded_instances {
   id: "right_head"
@@ -377,6 +374,7 @@ embedded_instances {
   position {
     x: 494.0
     y: 172.0
+    z: 0.1
   }
 }
 embedded_instances {
@@ -434,6 +432,7 @@ embedded_instances {
   "}\\n"
   "\"\n"
   "  position {\n"
+  "    x: -3.0\n"
   "    y: -5.0\n"
   "  }\n"
   "  scale {\n"
@@ -443,8 +442,28 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: -20.0
+    x: -17.0
     y: -19.0
     z: -0.1
+  }
+}
+embedded_instances {
+  id: "game_over"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"game_over\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/decorations.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 269.0
+    y: 184.0
+    z: 0.3
   }
 }
