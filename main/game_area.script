@@ -2,7 +2,7 @@ DIGIT_FRAMES = {hash("empty"), hash("1"), hash("2"), hash("3"),
 hash("4"), hash("5"), hash("6"), hash("7"), hash("8"), hash("9")}
 HESITATION_TIMES = {4.0, 3.5, 3.0, 2.5, 2.0, 1.5}
 
-function init(self)
+local function setup(self)
 	self.bull_ids = {}
 	self.left_pile = 0
 	self.right_pile = 0
@@ -11,7 +11,13 @@ function init(self)
 	self.timer = 0
 	self.level = 1
 	msg.post("/game_over","disable")
-	--msg.post("/center_line","disable") -- Test
+	
+end
+
+function init(self)
+	--setup(self)
+	self.state = 0
+	self.timer = 0
 end
 
 function final(self)
@@ -112,6 +118,8 @@ function on_message(self, message_id, message, sender)
 				break
 			end
 		end
+	elseif message_id == hash("setup") then
+		setup(self)
 	end
 end
 

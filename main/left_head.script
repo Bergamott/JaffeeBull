@@ -7,13 +7,12 @@ NECK_MIN = 93.0
 STRETCH_SPEED = 0.5
 RELOAD_TIME = 1.6
 
-function init(self)
+function setup(self)
 	self.tilt = 0
 	self.tilt_dir = 0
 	self.neck_dir = 1
 	self.neck_speed = NECK_SPEED
-	self.pos = go.get_position()
-	self.state = 1
+	self.pos = go.get_position() -- Change later
 	self.space_pressed = false
 	self.cheek_stretch = 0.2
 	self.wait = 0
@@ -22,6 +21,18 @@ function init(self)
 	msg.post("/launch_bull","disable")
 	msg.post(".", "acquire_input_focus")
 	sprite.play_flipbook("/left_cranium#sprite", hash("talking"))
+	self.state = 1
+end
+
+function init(self)
+	self.tilt = 0
+	self.tilt_dir = 0
+	self.neck_dir = 1
+	self.pos = go.get_position()
+	self.state = 0
+	self.space_pressed = false
+	self.wait = 0
+	self.vertical_dir = 0
 end
 
 function final(self)

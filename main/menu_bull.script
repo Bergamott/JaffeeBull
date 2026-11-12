@@ -1,0 +1,16 @@
+go.property("start_impulse", vmath.vector3(1,0,0))
+
+function init(self)
+	local body = b2d.get_body("#collisionobject")
+	local center = b2d.body.get_world_center(body)
+	center.y = center.y + 3.0*(math.random() - 0.5)
+	b2d.body.apply_linear_impulse(body, self.start_impulse, center)	
+end
+
+function update(self, dt)
+	local pos = go.get_position()
+	if pos.y < -80.0 then
+		go.delete()
+	end
+end
+

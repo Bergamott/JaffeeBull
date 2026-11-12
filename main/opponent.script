@@ -20,7 +20,7 @@ function init(self)
 	self.state = 0
 	self.wait = 0.0
 	self.hesitation_time = 2.0
-	setup(self)
+	--setup(self)
 end
 
 function final(self)
