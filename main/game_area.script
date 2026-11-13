@@ -59,6 +59,7 @@ function update(self, dt)
 		if top_left > 255.0 or top_right > 255.0 then
 			msg.post("/right_head#opponent", "stop")
 			msg.post("/left_head#left_head", "stop")
+			sound.play("/sounds#finished")
 			if top_left > 255.0 then
 				self.won = true
 				sprite.play_flipbook("/game_area#elected_left", "elected_flash")
@@ -71,6 +72,7 @@ function update(self, dt)
 		end
 	elseif self.state == 2 then -- Level finished
 		if self.timer <= 0 then
+			sound.stop("/sounds#finished")
 			sprite.play_flipbook("/game_area#elected_left","elected")
 			sprite.play_flipbook("/game_area#elected_right","elected")
 			if self.won then

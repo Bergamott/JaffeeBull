@@ -665,5 +665,12 @@ embedded_instances {
   "  data: \"sound: \\\"/main/assets/sounds/levelup.wav\\\"\\n"
   "\"\n"
   "}\n"
+  "embedded_components {\n"
+  "  id: \"finished\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/main/assets/sounds/finished.wav\\\"\\n"
+  "looping: 1\\n"
+  "\"\n"
+  "}\n"
   ""
 }
