@@ -96,6 +96,7 @@ function update(self, dt)
 			msg.post("/game_area#game_area", "new_bull", {id = id})
 			self.wait = 1.3
 			self.state = 3
+			sound.play("/sounds#bull")
 		end
 	elseif self.state == 3 then -- Gaping
 		if self.wait <= 0 then

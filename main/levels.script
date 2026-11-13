@@ -5,10 +5,10 @@ hash("4"), hash("5"), hash("6"), hash("7"), hash("8"), hash("9")}
 local function setup(self)
 	sprite.play_flipbook("#digit1", LEVEL_DIGIT_FRAMES[math.floor(self.level / 10) % 10 + 1])
 	sprite.play_flipbook("#digit2", LEVEL_DIGIT_FRAMES[self.level % 10 + 1])
-	
 	self.timer = 1.6
 	self.state = 1
 	msg.post(".", "enable")
+	sound.play("/sounds#levelup")
 end
 
 function init(self)

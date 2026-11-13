@@ -651,3 +651,19 @@ embedded_instances {
     z: 0.8
   }
 }
+embedded_instances {
+  id: "sounds"
+  data: "embedded_components {\n"
+  "  id: \"bull\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/main/assets/sounds/bull.wav\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"levelup\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/main/assets/sounds/levelup.wav\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}

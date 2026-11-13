@@ -81,7 +81,7 @@ function update(self, dt)
 				self.state = 0
 			else
 				msg.post("/game_over","enable")
-				self.timer = 2.5
+				self.timer = 3.0
 				self.state = 3
 			end
 		end
