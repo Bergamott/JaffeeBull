@@ -10,8 +10,11 @@ local function setup(self)
 	self.won = false
 	self.timer = 0
 	self.level = 1
+	msg.post(".","enable")
+	msg.post("/center_line","enable")
 	msg.post("/game_over","disable")
-	
+	msg.post("/left_head#left_head","setup")
+	msg.post("/right_head#opponent","setup")
 end
 
 function init(self)
@@ -64,7 +67,7 @@ function update(self, dt)
 				self.won = true
 				sprite.play_flipbook("/game_area#elected_left", "elected_flash")
 			else
-				self.won = true
+				self.won = false
 				sprite.play_flipbook("/game_area#elected_right", "elected_flash")
 			end
 			self.timer = 2.5
@@ -86,9 +89,11 @@ function update(self, dt)
 		end
 	elseif self.state == 3 then -- Game over
 		if self.timer <= 0 then
+			for i, bull_id in ipairs(self.bull_ids) do
+				go.delete(bull_id)
+			end
 			self.state = 0
-
-			
+			msg.post("/menu#menu", "setup")
 		end
 	end
 end

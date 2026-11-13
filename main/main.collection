@@ -648,6 +648,6 @@ embedded_instances {
   "}\n"
   ""
   position {
-    z: 0.5
+    z: 0.8
   }
 }

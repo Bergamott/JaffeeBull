@@ -4,7 +4,7 @@ local function setup(self)
 	self.tilt = 0
 	self.tilt_dir = 0
 	self.neck_dir = 0
-	self.pos = go.get_position()
+	self.pos = vmath.vector3(494.0, 172.0, 0.1)
 	self.tilt_target = 0 -- -10.0
 	self.neck_target = self.pos.y --105.0
 	self.cheek_stretch = 0.2
@@ -17,6 +17,7 @@ local function setup(self)
 end
 
 function init(self)
+	self.pos = go.get_position()
 	self.state = 0
 	self.wait = 0.0
 	self.hesitation_time = 2.0
@@ -149,7 +150,7 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("stop") then
 		self.state = 0
 	elseif message_id == hash("setup") then
-		
+		setup(self)
 	end
 end
 

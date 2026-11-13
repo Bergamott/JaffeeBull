@@ -12,7 +12,7 @@ function setup(self)
 	self.tilt_dir = 0
 	self.neck_dir = 1
 	self.neck_speed = NECK_SPEED
-	self.pos = go.get_position() -- Change later
+	self.pos = vmath.vector3(50.0, 172.0, 0.1)
 	self.space_pressed = false
 	self.cheek_stretch = 0.2
 	self.wait = 0
@@ -148,6 +148,9 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("stop") then
 		self.state = 0
+		msg.post(".", "release_input_focus")
+	elseif message_id == hash("setup") then
+		setup(self)
 	end
 end
 

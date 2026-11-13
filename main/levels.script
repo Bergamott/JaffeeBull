@@ -1,12 +1,18 @@
 go.property("level", 1)
+LEVEL_DIGIT_FRAMES = {hash("0"), hash("1"), hash("2"), hash("3"),
+hash("4"), hash("5"), hash("6"), hash("7"), hash("8"), hash("9")}
 
 local function setup(self)
-	self.timer = 2.0
+	sprite.play_flipbook("#digit1", LEVEL_DIGIT_FRAMES[math.floor(self.level / 10) % 10 + 1])
+	sprite.play_flipbook("#digit2", LEVEL_DIGIT_FRAMES[self.level % 10 + 1])
+	
+	self.timer = 1.6
 	self.state = 1
 	msg.post(".", "enable")
 end
 
 function init(self)
+	self.level = 1
 	self.timer = 0
 	self.state = 0
 end
@@ -22,6 +28,8 @@ function update(self, dt)
 		self.timer = self.timer - dt
 		if self.timer <= 0 then
 			self.state = 0
+			msg.post("/game_area#game_area", "setup", {level = 1})
+			msg.post(".", "disable")
 		end
 	end
 end
