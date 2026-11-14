@@ -20,6 +20,7 @@ local function setup(self)
 end
 
 function init(self)
+	self.my_hex = hash_to_hex(go.get_id())
 	self.level = 1
 	self.state = 0
 	self.timer = 0
@@ -84,6 +85,7 @@ function update(self, dt)
 			else
 				msg.post("/game_over","enable")
 				self.timer = 3.0
+				sound.play("/sounds#sad")
 				self.state = 3
 			end
 		end
@@ -111,5 +113,16 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("setup") then
 		self.level = message.level
 		setup(self)
+	elseif message_id == hash("contact_point_response") then
+		local imp = message.applied_impulse
+		if imp > 50.0 and self.my_hex < hash_to_hex(message.other_id) then
+			if imp > 200.0 then
+				sound.play("/sounds#bounce1")
+			elseif imp > 100 then
+				sound.play("/sounds#bounce2")
+			else
+				sound.play("/sounds#bounce3")
+			end
+		end
 	end
 end

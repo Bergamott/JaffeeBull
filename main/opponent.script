@@ -74,6 +74,7 @@ function update(self, dt)
 				msg.post("/right_cheek","enable")
 				go.set_position(vmath.vector3(-63.0+46.0*self.cheek_stretch, -19.0, -0.1), "/right_bull")
 				msg.post("/right_bull","enable")
+				sound.play("/sounds#windup")
 				self.state = 2
 			else
 				get_new_targets(self)
@@ -96,6 +97,7 @@ function update(self, dt)
 			msg.post("/game_area#game_area", "new_bull", {id = id})
 			self.wait = 1.3
 			self.state = 3
+			sound.stop("/sounds#windup")
 			sound.play("/sounds#bull")
 		end
 	elseif self.state == 3 then -- Gaping
@@ -123,6 +125,8 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("stack_height") then
 		self.stack_height = message.height
 	elseif message_id == hash("stop") then
+		msg.post("/right_cheek","disable")
+		msg.post("/right_bull","disable")
 		sprite.play_flipbook("/right_cranium#sprite", hash("head_left1"))
 		self.state = 0
 	elseif message_id == hash("setup") then

@@ -3,6 +3,7 @@ BULL_INITIAL_SCALE = 0.4
 BULL_GROWTH_SPEED = 1.6
 
 function init(self)
+	self.my_hex = hash_to_hex(go.get_id())
 	local body = b2d.get_body("#collisionobject") -- <3>
 	local center = b2d.body.get_world_center(body) -- <4>
 	self.sprite_scale = BULL_INITIAL_SCALE
@@ -22,3 +23,19 @@ function update(self, dt)
 		go.delete()
 	end
 end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("contact_point_response") then
+		local imp = message.applied_impulse
+		if imp > 50.0 and self.my_hex < hash_to_hex(message.other_id) then
+			if imp > 200.0 then
+				sound.play("/sounds#bounce1")
+			elseif imp > 100 then
+				sound.play("/sounds#bounce2")
+			else
+				sound.play("/sounds#bounce3")
+			end
+		end
+	end
+end
+

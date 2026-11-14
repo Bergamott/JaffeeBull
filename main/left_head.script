@@ -72,6 +72,7 @@ function update(self, dt)
 			msg.post("/cheek","enable")
 			go.set_position(vmath.vector3(69.0-46.0*self.cheek_stretch, -19.0, -0.1), "/launch_bull")
 			msg.post("/launch_bull","enable")
+			sound.play("/sounds#windup")
 			self.state = 2
 		end
 	elseif self.state == 2 then -- Stretching cheek
@@ -93,6 +94,7 @@ function update(self, dt)
 			msg.post("/game_area#game_area", "new_bull", {id = id})
 			self.wait = 0.3
 			self.state = 3
+			sound.stop("/sounds#windup")
 			sound.play("/sounds#bull")
 		end
 	elseif self.state == 3 then -- Holding mouth open
@@ -113,6 +115,8 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("stop") then
+		msg.post("/cheek","disable")
+		msg.post("/launch_bull","disable")
 		sprite.play_flipbook("/left_cranium#sprite", hash("head_left1"))
 		self.state = 0
 		msg.post(".", "release_input_focus")
