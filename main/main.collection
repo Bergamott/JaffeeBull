@@ -706,5 +706,11 @@ embedded_instances {
   "  data: \"sound: \\\"/main/assets/sounds/sad.wav\\\"\\n"
   "\"\n"
   "}\n"
+  "embedded_components {\n"
+  "  id: \"buzzer\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/main/assets/sounds/buzzer.wav\\\"\\n"
+  "\"\n"
+  "}\n"
   ""
 }

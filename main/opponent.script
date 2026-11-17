@@ -12,8 +12,9 @@ local function setup(self)
 	self.stack_height = 0.0
 	self.wait = self.hesitation_time
 	self.time_for_bull = false
-	sprite.play_flipbook("/left_cranium#sprite", hash("talking"))
-	self.state = 1
+	sprite.play_flipbook("/left_cranium#sprite", hash("head_left1"))
+	self.state = 4
+	self.wait = 1.0
 end
 
 function init(self)

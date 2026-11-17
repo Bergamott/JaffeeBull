@@ -17,6 +17,7 @@ local function setup(self)
 	msg.post("/left_head#left_head","setup")
 	msg.post("/right_head#opponent","setup",
 		{hesitation_time = HESITATION_TIMES[math.min(self.level, #HESITATION_TIMES)]})
+	sound.play("/sounds#buzzer")
 end
 
 function init(self)
